@@ -37,6 +37,7 @@ describe('Angular2AirDatepickerComponent', () => {
 
     describe('Spies', () => {
       let airCalendarSelectDateSpy: Spy;
+      let airDateSetTimeSpy: Spy;
       let airChangeEmitSpy: Spy;
 
       beforeEach(() => {
@@ -47,6 +48,7 @@ describe('Angular2AirDatepickerComponent', () => {
         component.ngOnInit();
 
         airCalendarSelectDateSpy = spyOn(component.airCalendar, 'selectDate');
+        airDateSetTimeSpy = spyOn(component.airDate, 'setTime');
         airChangeEmitSpy = spyOn(component.airChange, 'emit');
       });
 
@@ -54,6 +56,7 @@ describe('Angular2AirDatepickerComponent', () => {
         component.setDate(15);
 
         expect(airCalendarSelectDateSpy).toHaveBeenCalledTimes(1);
+        expect(airDateSetTimeSpy).toHaveBeenCalledTimes(1);
         expect(airChangeEmitSpy).toHaveBeenCalledTimes(1);
         expect(airChangeEmitSpy).toHaveBeenCalledWith(component.airDate);
       });
@@ -62,6 +65,7 @@ describe('Angular2AirDatepickerComponent', () => {
         component.setDate();
 
         expect(airCalendarSelectDateSpy).not.toHaveBeenCalled();
+        expect(airDateSetTimeSpy).toHaveBeenCalledTimes(1);
         expect(airChangeEmitSpy).toHaveBeenCalledTimes(1);
         expect(airChangeEmitSpy).toHaveBeenCalledWith(component.airDate);
       });
@@ -72,6 +76,7 @@ describe('Angular2AirDatepickerComponent', () => {
         component.setDate(15);
 
         expect(airCalendarSelectDateSpy).not.toHaveBeenCalled();
+        expect(airDateSetTimeSpy).not.toHaveBeenCalled();
         expect(airChangeEmitSpy).not.toHaveBeenCalled();
       });
 
@@ -81,6 +86,8 @@ describe('Angular2AirDatepickerComponent', () => {
         component.setDate();
 
         expect(airCalendarSelectDateSpy).not.toHaveBeenCalled();
+        expect(airDateSetTimeSpy).not.toHaveBeenCalled();
+        expect(airChangeEmitSpy).not.toHaveBeenCalled();
       });
     });
   });
@@ -244,7 +251,5 @@ describe('Angular2AirDatepickerComponent', () => {
         click(navButtons[0]);
       }
     });
-
-    // options.range tests here...
   });
 });
